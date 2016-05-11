@@ -1,0 +1,35 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { danger } from '../util/colors'
+
+class DatePicker extends React.Component {
+  render() {
+    const { field, label } = this.props
+    return(
+      <div className="form-group">
+        <label forHtml={field.name} className="col-sm-2 control-label">{label}</label>
+        <div className="col-sm-10">
+          <input type='text' ref='date' className="form-control" {...field} />
+          {field.touched && field.error && <div style={{color: 'white', backgroundColor: danger}}>{field.error}</div>}
+        </div>
+      </div>
+    );
+  }
+
+  componentDidMount() {
+    $(ReactDOM.findDOMNode(this.refs.date)).datepicker({ dateFormat: 'yy-mm-dd' });
+    $(ReactDOM.findDOMNode(this.refs.date)).on('change', this.handleChange.bind(this));
+  }
+
+  componentWillUnmount() {
+
+  }
+
+  handleChange(e) {
+    e.preventDefault()
+    let date = ReactDOM.findDOMNode(this.refs.date).value
+    this.props.field.onChange(date);
+  }
+}
+
+export default DatePicker
