@@ -1,6 +1,9 @@
 # Created by https://www.gitignore.io
 db.sqlite3
 
+#bundle.js
+bundle.js
+
 ### Django ###
 *.log
 *.pot

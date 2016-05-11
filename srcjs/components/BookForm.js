@@ -1,17 +1,18 @@
 import React from 'react'
 
+import { reduxForm } from 'redux-form';
+import { routeActions } from 'react-router-redux'
 import { addBookResult, updateBookResult, deleteBookResult, loadBook } from '../actions/books'
+
 import { showSuccessNotification, showErrorNotification } from '../actions/notification'
 import { loadCategories, loadSubCategories } from '../actions/categories'
 import { submittingChanged } from '../actions'
+import { danger } from '../util/colors'
 
-import { reduxForm } from 'redux-form';
-import { routeActions } from 'react-router-redux'
+import readCookie from '../util/readcookie'
 import DatePicker from './DatePicker'
 import Input from './Input'
 import Select from './Select'
-import { danger } from '../util/colors'
-import readCookie from '../util/readCookie'
 import axios from 'axios'
 
 const submit = (id, values, dispatch) => {
@@ -37,9 +38,9 @@ const submit = (id, values, dispatch) => {
       dispatch(submittingChanged(false))
       dispatch(showSuccessNotification('Success!'))
       if(id) {
-        dispatch(updateBookResult(response))
+        dispatch(updateBookResult(response.data))
       } else {
-        dispatch(addBookResult(response))
+        dispatch(addBookResult(response.data))
       }
       dispatch(routeActions.push('/'));
     })
@@ -51,6 +52,7 @@ const submit = (id, values, dispatch) => {
 const del = (id, dispatch) => {
   const url = `/api/books/${id}/`
   const type='DELETE';
+  const csrftoken = readCookie('csrftoken')
 
   return axios({
     url: url,
