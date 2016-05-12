@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-
 export default class SearchPanel extends React.Component {
   constructor() {
     super()
@@ -12,10 +11,11 @@ export default class SearchPanel extends React.Component {
 
   render() {
     return (
-      <div>
-        Filter: &nbsp;
-        <input ref='search' name='search' type='text' defaultValue={this.props.search} value={this.state.search} onChange={this.onSearchChange } />
-        {(this.state.search||this.props.search)?<button onClick={this.onClearSearch} >x</button>:''}
+      <div className="input-group">
+        <input placeholder="Find..." ref='search' name='search' type='text' className="form-control" defaultValue={this.props.search} value={this.state.search} onChange={this.onSearchChange } />
+        <span className="input-group-btn">
+          <button className="btn btn-default" type="button" onClick={this.onClearSearch}>x</button>
+        </span>
       </div>
     )
   }
@@ -36,7 +36,6 @@ export default class SearchPanel extends React.Component {
       search: ''
     });
     this.props.onSearchChanged(undefined)
-
   }
 }
 

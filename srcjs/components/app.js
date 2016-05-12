@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { loadingChanged } from '../actions'
 import { loadBooks } from '../actions/books'
@@ -7,25 +8,36 @@ import { loadAuthors } from '../actions/authors'
 import NotificationContainer from './notification';
 import LoadingContainer from './loading';
 import StatPanel from './StatPanel'
-import { bindActionCreators } from 'redux'
-
+import Sidebar from './Sidebar'
 
 class App extends React.Component {
 
   render() {
-    const { isLoading } = this.props.ui;
-    return <div>
 
-      {this.props.children}
+    return (
+      <div>
+        <Sidebar />
+        <div className="center-container">
+          {this.props.children}
+        </div>
+        <StatPanel bookLength={this.props.books.count} authorLength={this.props.authors.rows.length} />
+      </div>
+    )
 
-      <NotificationContainer />
-      <LoadingContainer isLoading={isLoading} />
 
-      <br />
 
-      <StatPanel bookLength={this.props.books.count} authorLength={this.props.authors.rows.length} />
+    // const { isLoading } = this.props.ui;
+    // return <div>
 
-    </div>
+
+    //   <NotificationContainer />
+    //   <LoadingContainer isLoading={isLoading} />
+
+    //   <br />
+
+    //   <StatPanel bookLength={this.props.books.count} authorLength={this.props.authors.rows.length} />
+
+    // </div>
   }
 
   componentDidMount() {

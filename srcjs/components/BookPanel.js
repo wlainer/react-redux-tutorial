@@ -11,8 +11,8 @@ import { bindActionCreators } from 'redux'
 const getCols = sort_method => [
   {
     key: 'id',
-    label: 'ID',
-    format: x=><Link to={`/book_update/${x.id}/`}>{x.id}</Link>,
+    label: <em className="fa fa-cog"></em>,
+    format: x=><Link className="btn btn-default" to={`/book_update/${x.id}/`}><em className="fa fa-pencil"></em></Link>,
     sorting: sort_method('id')
   },
   {key: 'title', label: 'Title', sorting: sort_method('title')},
@@ -29,26 +29,14 @@ const BookPanel = (props) => {
   const sort_method = key => () => toggleSortingAndLoadBooks(key)
   const cols = getCols(sort_method)
 
-  return <div>
-    <div className="panel panel-default panel-table">
-      <div className="panel-heading">
-        <div className="row">
-          <div className="col col-xs-4">
-            <h3 className="panel-title">Book List</h3>
-          </div>
-          <div className="col col-xs-6 text-right">
-            <BookSearchPanel search={search} onSearchChanged={onSearchChanged} />
-          </div>
-          <div className="col col-xs-2 text-right">
-            <Link className='btn btn-sm btn-primary btn-create' to="/book_create/">Create New</Link>
-          </div>
-        </div>
-      </div>
-    <div className="panel-body" >
-      <Table sorting={sorting} cols={cols} rows={rows} />
-    </div>
-    <div className="panel-footer">
-      <div className="row text-right">
+  return (
+   <div className="center-content">
+     <div className="center-content__header clearfix">Book List
+       <Link className='btn btn-sm btn-primary pull-right' to="/book_create/" >Create New</Link>
+     </div>
+     <div className="email-content__message">
+       <Table sorting={sorting} cols={cols} rows={rows} />
+     </div>
         <PagingPanel count={count} page={page} onNextPage={() => {
             changePage(page+1);
             loadBooks()
@@ -56,10 +44,28 @@ const BookPanel = (props) => {
             changePage(page-1);
             loadBooks()
           }} />
-      </div>
-    </div>
-  </div>
-</div>
+   </div>
+  // <div className="panel panel-default panel-table">
+      // <div className="panel-heading">
+        // <div className="row">
+          // <div className="col col-xs-4">Book List</div>
+          // <div className="col col-xs-6 text-right">
+            // <BookSearchPanel search={search} onSearchChanged={onSearchChanged} />
+          // </div>
+          // <div className="col col-xs-2 text-right">
+            // <Link className='btn btn-sm btn-primary btn-create' to="/book_create/">Create New</Link>
+          // </div>
+        // </div>
+      // </div>
+    // <div className="panel-body" >
+      // <Table sorting={sorting} cols={cols} rows={rows} />
+    // </div>
+    // <div className="panel-footer">
+      // <div className="row text-right">
+      // </div>
+    // </div>
+  // </div>
+  )
 }
 
 
