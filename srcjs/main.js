@@ -8,7 +8,7 @@ import store from './store'
 import { history } from './store'
 
 import App from './components/app';
-import BookPanel from './components/BookPanel';
+import BookPanelContainer from './container/BookPanelContainer';
 import AuthorPanel from './components/AuthorPanel';
 import BookForm from './components/BookForm';
 import AuthorForm from './components/AuthorForm';
@@ -35,7 +35,7 @@ render((
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={BookPanel}/>
+        <IndexRoute component={BookPanelContainer}/>
         <Route path="/book_create/" component={BookForm} />
         <Route path="/book_update/:id" component={BookForm} />
 

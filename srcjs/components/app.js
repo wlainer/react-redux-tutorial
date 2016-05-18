@@ -18,50 +18,36 @@ class App extends React.Component {
       <div>
         <Sidebar />
         <div className="center-container">
-          {this.props.children}
+          { this.props.children }
         </div>
-        <StatPanel bookLength={this.props.books.count} authorLength={this.props.authors.rows.length} />
+        {/*<StatPanel bookLength={this.props.books.count} authorLength={this.props.authors.rows.length} />*/}
       </div>
     )
-
-
-
-    // const { isLoading } = this.props.ui;
-    // return <div>
-
-
-    //   <NotificationContainer />
-    //   <LoadingContainer isLoading={isLoading} />
-
-    //   <br />
-
-    //   <StatPanel bookLength={this.props.books.count} authorLength={this.props.authors.rows.length} />
-
-    // </div>
   }
 
-  componentDidMount() {
-    let { loadBooks, loadAuthors } = this.props;
+  // componentDidMount() {
+  //   let { loadBooks, loadAuthors } = this.props;
 
-    if(this.props.books.rows.length==0) {
-      loadBooks();
-    }
-    if(this.props.authors.rows.length==0) {
-      loadAuthors();
-    }
-  }
+  //   if(this.props.books.rows.length==0) {
+  //     loadBooks();
+  //   }
+  //   if(this.props.authors.rows.length==0) {
+  //     loadAuthors();
+  //   }
+  // }
 }
 
-const mapStateToProps = state => ({
-  books:state.books,
-  authors:state.authors,
-  ui:state.ui,
-})
+// const mapStateToProps = state => ({
+//   books:state.books,
+//   authors:state.authors,
+//   ui:state.ui,
+// })
 
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  loadBooks, loadAuthors
-}, dispatch)
+// const mapDispatchToProps = dispatch => bindActionCreators({
+//   loadBooks, loadAuthors
+// }, dispatch)
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

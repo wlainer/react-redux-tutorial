@@ -60,7 +60,7 @@ export function loadBooks(page=1) {
     if(search) {
       url+=`&search=${search}`
     }
-    dispatch(loadingChanged(true));
+    // dispatch(loadingChanged(true));
     return axios({
       url: url,
       timeout: 20000,
@@ -68,7 +68,7 @@ export function loadBooks(page=1) {
     })
     .then(function(response) {
       dispatch(showBooksResult(response.data));
-      dispatch(loadingChanged(false));
+      // dispatch(loadingChanged(false));
     })
   }
 }
