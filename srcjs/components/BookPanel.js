@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Table from './Table'
 // import { changePage, changeSearch } from '../actions'
 import { loadBooks, toggleSortingAndLoadBooks, changeSearchAndLoadBooks } from '../actions/books'
-// import PagingPanel from './PagingPanel'
+import PagingPanel from './PagingPanel'
 // import BookSearchPanel from './BookSearchPanel'
 // import { bindActionCreators } from 'redux'
 
@@ -12,6 +12,7 @@ import { loadBooks, toggleSortingAndLoadBooks, changeSearchAndLoadBooks } from '
 
 
 const BookPanel = (props) => {
+  console.log('props', props)
   const { rows, count, page, sorting, search } = props.books;
   const cols = [
     {key: 'id', label: <em className="fa fa-cog"></em>},
@@ -34,13 +35,13 @@ const BookPanel = (props) => {
      <div className="email-content__message">
         <Table sorting={sorting} cols={cols} rows={rows} />
      </div>
-        {/*<PagingPanel count={count} page={page} onNextPage={() => {
-            changePage(page+1);
-            loadBooks()
+        <PagingPanel count={count} page={page} onNextPage={() => {
+            props.onChangePage(page+1);
+            props.onLoadBooks()
           }} onPreviousPage={ () => {
-            changePage(page-1);
-            loadBooks()
-          }} />*/}
+            props.onChangePage(page-1);
+            props.onLoadBooks()
+          }} />
    </div>
   // <div className="panel panel-default panel-table">
       // <div className="panel-heading">

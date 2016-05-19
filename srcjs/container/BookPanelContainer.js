@@ -3,24 +3,33 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import BookPanel from '../components/BookPanel'
-import { toggleSortingAndLoadBooks } from '../actions'
+import { toggleSortingAndLoadBooks, changePage} from '../actions'
 import { loadBooks } from '../actions/books'
 
 class BookPanelContainer extends React.Component {
 
+  constructor() {
+    super()
+    console.log('this', this)
+  }
+
   componentDidMount() {
-    this.props.loadBooks()
+    this.handleChangePage = this.props.changePage
+    this.handleLoadBooks = this.props.loadBooks
+    this.handleLoadBooks()
   }
 
   render() {
     return(
-      <BookPanel books={ this.props.books } />
+      <BookPanel books={ this.props.books }
+                 onChangePage={ this.handleChangePage }
+                 onLoadBooks={ this.handleLoadBooks } />
     )
   }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({ loadBooks,
-toggleSortingAndLoadBooks }, dispatch)
+toggleSortingAndLoadBooks, changePage }, dispatch)
 
 const mapStateToProps = state => ({
   books: state.books
