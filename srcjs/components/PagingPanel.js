@@ -6,7 +6,7 @@ export default ({page=1, page_size=5, count, onNextPage, onPreviousPage, ...prop
   return (
     <nav style={{'textAlign': 'center'}}>
       <ul style={{'marginTop': '0px'}} className="pagination">
-        <li className={ page === 1? "disabled": "" }>
+        <li className={ page === 1? "disabled": "" } style={ page === 1? {'pointerEvents' : 'none'}: null }>
           <a aria-label="Previous"
           onClick={e => {
             e.preventDefault();
@@ -14,9 +14,9 @@ export default ({page=1, page_size=5, count, onNextPage, onPreviousPage, ...prop
           }}><span aria-hidden="true">&laquo;</span>
           </a>
         </li>
-      <li><a href="#">&nbsp; Page {page} of {total_pages} &nbsp;</a></li>
-        <li>
-          <a aria-label="Next" className={ page === page_size? "disabled": "" }
+      <li style={{'pointerEvents' : 'none'}}><a href="#">&nbsp; Page {page} of {total_pages} &nbsp;</a></li>
+        <li className={ page === total_pages? "disabled": "" } style={ page === total_pages ? {'pointerEvents' : 'none'}: null }>
+          <a aria-label="Next"
               onClick={e => {
               e.preventDefault();
               onNextPage();

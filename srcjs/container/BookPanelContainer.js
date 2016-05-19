@@ -10,7 +10,6 @@ class BookPanelContainer extends React.Component {
 
   constructor() {
     super()
-    console.log('this', this)
   }
 
   componentDidMount() {

@@ -1,0 +1,5 @@
+pip install --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org  -r requirements.txt
+
+pip install --trusted-host pypi.python.org  -r requirements.txt
+
+python -m pip install --upgrade --trusted-host pypi.python.org pip

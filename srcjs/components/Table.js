@@ -5,13 +5,12 @@ const formatHeader = ({key, label}, sorting) => (sorting==key)?('+'+label):(
 )
 
 export default (props) => {
-  console.log('props', props);
-  const headers = props.cols.map(col => <th key={col.key}>{ col.label }</th>)
+  const headers = props.cols.map(col => <th key={col.key} style={col.key === 'id' ? {'width':'12%'} : null }>{ col.label }</th>)
 
   const rows = props.rows.map(row => <tr key={row.id}>
     {
       props.cols.map(col => <td key={col.key}>
-        {row[col.key]}
+         {(col.format?col.format(row):row[col.key])}
       </td>)
     }
   </tr>)
