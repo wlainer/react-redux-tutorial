@@ -1,5 +1,5 @@
 import React from 'react'
-import { danger } from '../util/colors'
+import { danger } from '../utils/colors'
 
 export default ({field, label, options, ...props}) => <div className="form-group">
     <label forHtml={field.name} >{label}</label>

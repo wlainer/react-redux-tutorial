@@ -6,7 +6,7 @@ import { submittingChanged } from '../actions'
 import { reduxForm } from 'redux-form';
 import { routeActions } from 'react-router-redux'
 import Input from './Input'
-import { danger } from '../util/colors'
+import { danger } from '../utils/colors'
 
 const submit = (id, values, dispatch) => {
   let url = '//127.0.0.1:8000/api/authors/'

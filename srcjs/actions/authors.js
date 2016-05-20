@@ -1,37 +1,44 @@
 import { loadingChanged, toggleSorting } from '../actions'
+
+export const SHOW_AUTHORS = 'SHOW_AUTHORS';
+export const SHOW_AUTHOR = 'SHOW_AUTHOR';
+export const ADD_AUTHOR = 'ADD_AUTHOR';
+export const UPDATE_AUTHOR = 'UPDATE_AUTHOR';
+export const DELETE_AUTHOR = 'DELETE_AUTHOR';
+
 import axios from 'axios'
 
 export function showAuthorsResult(jsonResult) {
   return {
-    type: "SHOW_AUTHORS",
+    type: SHOW_AUTHORS,
     authors: jsonResult
   };
 }
 
 export function showAuthorResult(author) {
   return {
-    type: "SHOW_AUTHOR",
+    type: SHOW_AUTHOR,
     author
   };
 }
 
 export function addAuthorResult(author) {
   return {
-    type: "ADD_AUTHOR",
+    type: ADD_AUTHOR,
     author
   };
 }
 
 export function updateAuthorResult(author) {
   return {
-    type: "UPDATE_AUTHOR",
+    type: UPDATE_AUTHOR,
     author
   };
 }
 
 export function deleteAuthorResult(id) {
   return {
-    type: "DELETE_AUTHOR",
+    type: DELETE_AUTHOR,
     id
   };
 }

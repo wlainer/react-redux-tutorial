@@ -1,18 +1,24 @@
 import { loadingChanged, toggleSorting, changeSearch } from '../actions'
-import { formatUrl } from '../util/formatters'
-import { history } from  '../store'
+import { formatUrl } from '../utils/formatters'
+import { history } from  '../store/store'
 import axios from 'axios'
+
+export const SHOW_BOOKS = 'SHOW_BOOKS';
+export const SHOW_BOOK = 'SHOW_BOOK';
+export const ADD_BOOK = 'ADD_BOOK';
+export const UPDATE_BOOK = 'UPDATE_BOOK';
+export const DELETE_BOOK = 'DELETE_BOOK';
 
 export function showBooksResult(jsonResult) {
   return {
-    type: "SHOW_BOOKS",
+    type: SHOW_BOOKS,
     books: jsonResult
   };
 }
 
 export function showBookResult(jsonResult) {
   return {
-    type: "SHOW_BOOK",
+    type: SHOW_BOOK,
     book: jsonResult
   };
 }
@@ -20,21 +26,21 @@ export function showBookResult(jsonResult) {
 
 export function addBookResult(book) {
   return {
-    type: "ADD_BOOK",
+    type: ADD_BOOK,
     book
   };
 }
 
 export function updateBookResult(book) {
   return {
-    type: "UPDATE_BOOK",
+    type: UPDATE_BOOK,
     book
   };
 }
 
 export function deleteBookResult(id) {
   return {
-    type: "DELETE_BOOK",
+    type: DELETE_BOOK,
     id
   };
 }

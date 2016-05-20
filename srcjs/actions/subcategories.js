@@ -1,8 +1,10 @@
 import axios from 'axios'
 
+export const SHOW_SUBCATEGORIES = 'SHOW_SUBCATEGORIES'
+
 export function showSubCategoriesResult(jsonResult) {
   return {
-    type: "SHOW_SUBCATEGORIES",
+    type: SHOW_SUBCATEGORIES,
     subcategories: jsonResult
   };
 }

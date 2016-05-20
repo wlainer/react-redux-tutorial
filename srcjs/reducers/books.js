@@ -1,3 +1,6 @@
+import { SHOW_BOOKS, SHOW_BOOK, ADD_BOOK, UPDATE_BOOK, DELETE_BOOK }
+  from '../actions/books'
+
 const BOOKS_INITIAL = {
   rows: [],
   count: 0,
@@ -6,16 +9,17 @@ const BOOKS_INITIAL = {
   search: getParameterByName('search'),
   book: {},
 }
-export const books = (state=BOOKS_INITIAL, action) => {
+
+export default function(state=BOOKS_INITIAL, action) {
   let idx = 0;
   switch (action.type) {
-    case 'SHOW_BOOKS':
+    case SHOW_BOOKS:
       return Object.assign({}, state, {
         rows: action.books.results,
         count: action.books.count,
       });
       break;
-    case 'SHOW_BOOK':
+    case SHOW_BOOK:
       return Object.assign({}, state, {
         book: action.book
       });
@@ -35,7 +39,7 @@ export const books = (state=BOOKS_INITIAL, action) => {
         search: action.search
       });
       break;
-    case 'ADD_BOOK':
+    case ADD_BOOK:
       return Object.assign({}, state, {
         book: action.book,
         count: state.count+1,
@@ -44,7 +48,7 @@ export const books = (state=BOOKS_INITIAL, action) => {
           action.book,
         ]
       });
-    case 'UPDATE_BOOK':
+    case UPDATE_BOOK:
       idx = state.rows.findIndex( r => r.id === action.book.id)
       if(idx==-1) {
         return Object.assign({}, state, {
@@ -61,7 +65,7 @@ export const books = (state=BOOKS_INITIAL, action) => {
         });
       }
       break;
-    case 'DELETE_BOOK':
+    case DELETE_BOOK:
       idx = state.rows.findIndex( r => r.id == action.id)
       if(idx==-1) {
         return Object.assign({}, state, {

@@ -1,4 +1,8 @@
-export const notification = (state={}, action) => {
+import { SHOW_NOTIFICATION, CLEAR_NOTIFICATION } from
+  '../actions/notification'
+
+
+export default function(state={}, action) {
   switch (action.type) {
     case 'SHOW_NOTIFICATION':
       let { notification_type, message } = action

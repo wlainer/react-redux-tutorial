@@ -3,7 +3,7 @@ import { Notification } from 'react-notification';
 import { connect } from 'react-redux'
 import { hideNotification } from '../actions/notification'
 
-import * as colors from '../util/colors'
+import * as colors from '../utils/colors'
 
 
 const NotificationContainer = (props) => {

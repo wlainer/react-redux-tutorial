@@ -1,4 +1,4 @@
-export const ui = (state={}, action) => {
+export default function(state={}, action) {
   switch (action.type) {
     case 'IS_LOADING':
       return Object.assign({}, state, {

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { danger } from '../util/colors'
+import { danger } from '../utils/colors'
 
 class DatePicker extends React.Component {
   render() {

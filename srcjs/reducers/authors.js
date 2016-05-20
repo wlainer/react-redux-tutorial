@@ -1,21 +1,24 @@
+import { SHOW_AUTHORS, SHOW_AUTHOR, ADD_AUTHOR, UPDATE_AUTHOR, DELETE_AUTHOR }
+  from '../actions/authors'
+
 const AUTHORS_INITIAL = {
   rows: [],
   author: {},
 }
-export const authors = (state=AUTHORS_INITIAL, action) => {
+export default function(state=AUTHORS_INITIAL, action) {
   let idx = 0;
   switch (action.type) {
-    case 'SHOW_AUTHORS':
+    case SHOW_AUTHORS:
       return Object.assign({}, state, {
         rows: action.authors
       });
       break;
-    case 'SHOW_AUTHOR':
+    case SHOW_AUTHOR:
       return Object.assign({}, state, {
         author: action.author
       });
       break;
-    case 'ADD_AUTHOR':
+    case ADD_AUTHOR:
       return Object.assign({}, state, {
         author: action.author,
         rows: [
@@ -23,7 +26,7 @@ export const authors = (state=AUTHORS_INITIAL, action) => {
           action.author,
         ]
       });
-    case 'UPDATE_AUTHOR':
+    case UPDATE_AUTHOR:
       idx = state.rows.findIndex( r => r.id === action.author.id)
       if(idx==-1) {
         return Object.assign({}, state, {
@@ -40,7 +43,7 @@ export const authors = (state=AUTHORS_INITIAL, action) => {
         });
       }
       break;
-    case 'DELETE_AUTHOR':
+    case DELETE_AUTHOR:
       idx = state.rows.findIndex( r => r.id == action.id)
       if(idx==-1) {
         return Object.assign({}, state, {

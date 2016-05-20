@@ -1,55 +1,39 @@
-import React from 'react'
-import { render } from 'react-dom'
-import { Router, Route, IndexRoute, Link } from 'react-router'
+// react should be included when use ReactDom
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router } from 'react-router';
+import { Provider } from 'react-redux';
+import { history } from './store/store'
 
-import { Provider } from 'react-redux'
+import configureStore from './store/store';
+import getRoutes from './routes';
+import config from './config';
 
-import store from './store'
-import { history } from './store'
+const store = configureStore();
+// const history = syncHistoryWithStore(browserHistory, store);
 
-import App from './components/app';
-import BookPanelContainer from './container/BookPanelContainer';
-import BookFormContainer from './container/BookFormContainer';
-import AuthorPanel from './components/AuthorPanel';
-import AuthorForm from './components/AuthorForm';
+let appRootComponent;
 
-import schedule from './scheduler';
-
-
-
-const About = () => {
-  return <div>
-    <h2>About</h2>
-    <Link to="/">Home</Link>
-  </div>
+if (!config.isProduction) {
+  // Use require because imports can't be conditional.
+  // In production, you should ensure process.env.NODE_ENV
+  // is envified so that Uglify can eliminate this
+  // module and its dependencies as dead code.
+  const DevTools = require('./utils/DevTools').default;
+  appRootComponent = () => (
+    <Provider store={store}>
+      <div>
+        <Router history={history} routes={getRoutes(store)}/>
+        <DevTools />
+      </div>
+    </Provider>
+  );
+} else {
+  appRootComponent = () => (
+    <Provider store={store}>
+      <Router history={history} routes={getRoutes(store)}/>
+    </Provider>
+  );
 }
 
-const NoMatch = () => {
-  return <div>
-    <h2>No match</h2>
-    <Link to="/">Home</Link>
-  </div>
-}
-
-render((
-  <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={App}>
-        <IndexRoute component={BookPanelContainer}/>
-        <Route path="/book_create/" component={BookFormContainer} />
-        <Route path="/book_update/:id" component={BookFormContainer} />
-
-        <Route path="/authors/" component={AuthorPanel} />
-        <Route path="/author_create/" component={AuthorForm} />
-        <Route path="/author_update/:id" component={AuthorForm} />
-
-        <Route path="/about" component={About}/>
-        <Route path="*" component={NoMatch}/>
-      </Route>
-    </Router>
-  </Provider>
-  ), document.getElementById('content')
-)
-
-
-// schedule();
+ReactDOM.render(appRootComponent(), document.getElementById('content'));

@@ -3,17 +3,33 @@ import { reduxForm } from 'redux-form'
 import { routeActions } from 'react-router-redux'
 import axios from 'axios'
 
-import readCookie from '../util/readcookie'
-import BookFormTemp from '../components/BookFormTemp'
+import readCookie from '../utils/readcookie'
+import BookForm from '../components/BookForm'
 
 import { submittingChanged } from '../actions'
 import { addBookResult, updateBookResult, deleteBookResult, loadBook } from '../actions/books'
+import { showSuccessNotification, showErrorNotification } from '../actions/notification'
+
 export const fields = ['title', 'category', 'subcategory', 'publish_date', 'author' ]
 
 class BookFormContainer extends React.Component {
 
   constructor() {
     super()
+  }
+
+  componentDidMount() {
+    // if(this.props.categories.categories.length==0) {
+    //   this.props.dispatch(loadCategories());
+    // }
+
+    if (this.props.params.id) {
+      if(!this.props.book || this.props.book.id != this.props.params.id) {
+        this.props.dispatch(loadBook(this.props.params.id));
+      }
+    } else {
+      // New book
+    }
   }
 
   handlesubmit(id, values, dispatch) {
@@ -35,19 +51,19 @@ class BookFormContainer extends React.Component {
       data: values,
       headers: {'X-CSRFToken': csrftoken}
     })
-      .then(function(response) {
-        dispatch(submittingChanged(false))
-        dispatch(showSuccessNotification('Success!'))
-        if(id) {
-          dispatch(updateBookResult(response.data))
-        } else {
-          dispatch(addBookResult(response.data))
-        }
-        dispatch(routeActions.push('/'));
-      })
-      .catch(function(response){
-        dispatch(showErrorNotification(`Error (${response.status} - ${response.statusText}) while saving: ${response.responseText}` ))
-      })
+    .then(function(response) {
+      dispatch(submittingChanged(false))
+      dispatch(showSuccessNotification('Success!'))
+      if(id) {
+        dispatch(updateBookResult(response.data))
+      } else {
+        dispatch(addBookResult(response.data))
+      }
+      dispatch(routeActions.push('/'));
+    })
+    .catch(function(response){
+      dispatch(showErrorNotification(`Error (${response.status} - ${response.statusText}) while saving: ${response.responseText}` ))
+    })
   };
 
   handleDel(id, dispatch) {
@@ -61,23 +77,23 @@ class BookFormContainer extends React.Component {
       method: type,
       headers: {'X-CSRFToken': csrftoken}
     })
-      .then(function(response) {
-        dispatch(showSuccessNotification('Success!'))
-        dispatch(deleteBookResult(id))
-        dispatch(routeActions.push('/'));
-      })
-      .catch(function(response){
-        dispatch(submittingChanged(false))
-        console.log(response);
-        dispatch(showErrorNotification(`Error (${response.status} - ${response.statusText}) while saving: ${response.responseText}` ))
-      })
+    .then(function(response) {
+      dispatch(showSuccessNotification('Success!'))
+      dispatch(deleteBookResult(id))
+      dispatch(routeActions.push('/'));
+    })
+    .catch(function(response){
+      dispatch(submittingChanged(false))
+      console.log(response);
+      dispatch(showErrorNotification(`Error (${response.status} - ${response.statusText}) while saving: ${response.responseText}` ))
+    })
   };
 
   render() {
     return (
-      <BookFormTemp  props={this.props}
-                     onSubmit={this.handlesubmit}
-                     onDel={this.handleDel} />
+      <BookForm  {...this.props}
+                 onSubmit={this.handlesubmit}
+                 onDel={this.handleDel} />
     )
   }
 }
